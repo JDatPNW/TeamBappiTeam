@@ -1,9 +1,8 @@
 # Data Acquisition Modules
 
-## Webtoon combiner (webtoon_combiner.py)
+## Webtoon Combiner (webtoon_combiner.py)
 
-This Python script combines seperate images obtained with <b>[Webtoon-Downloader](https://github.com/Zehina/Webtoon-Downloader)</b>.<br>
-We created a test dataset using <b>[ComicPanelSegmentation](https://github.com/reidenong/ComicPanelSegmentation)</b> on combine images.
+This Python script combines seperate images obtained with __[Webtoon-Downloader](https://github.com/Zehina/Webtoon-Downloader)__. Which can then be sliced up with __[ComicPanelSegmentation](https://github.com/reidenong/ComicPanelSegmentation)__ when used on the combined images.
 
 ### Prerequisites
 
@@ -12,20 +11,41 @@ We created a test dataset using <b>[ComicPanelSegmentation](https://github.com/r
 - numpy
 - tqdm
 
-### Usage
+Install the required libraries using:
 
 ```bash
-python webtoon_combiner.py --filepath <file_path> --outputpath <int:output_path> --start <int:start_episode> --end <end_episode> --all <True/False> --combine <int:Unit to combine imgs with> --remove <True/False>
+pip install pillow numpy tqdm
 ```
 
-- --filepath: Directory where imgs are saved by using Webtoon-Downloader.
-- --outputpath: Directory where to save the combine imgs.
-- --start: Episode to start combine.
-- --end: Episode to end combine.
-- --all: Whether to combine all.
-- --combine: Unit to combine imgs with.
-- --remove: Whether to remove the original imgs.
 
+### Usage
+
+1. Download images using the above mentioned [Webtoon-Downloader](https://github.com/Zehina/Webtoon-Downloader)
+
+2. Run the generated images through the script
+    ```bash
+    python webtoon_combiner.py --filepath <file_path> --outputpath <int:output_path> --start <int:start_episode> --end <end_episode> --all <True/False> --combine <int:Unit to combine imgs with> --remove <True/False>
+    ```
+
+    - --filepath: Directory where imgs are saved by using Webtoon-Downloader.
+    - --outputpath: Directory where to save the combine imgs.
+    - --start: Episode to start combine.
+    - --end: Episode to end combine.
+    - --all: Whether to combine all.
+    - --combine: Unit to combine imgs with.
+    - --remove: Whether to remove the original imgs.
+3. Slice the images with the [ComicPanelSegmentation](https://github.com/reidenong/ComicPanelSegmentation).
+
+
+### Example
+```bash
+python webtoon_combiner.py --filepath ./path/to/webtoon/images --outputpath ./path/to/save/combined/images --start 1 --end 10 --all True --combine 5 --remove True
+```
+This example combines episodes 1 to 10, combining all images into a single webtoon-style image with 5 images in each step. Original images are removed after the process.
+
+### Acknowledgments
+- [ComicPanelSegmentation](https://github.com/reidenong/ComicPanelSegmentation)
+- [Webtoon-Downloader](https://github.com/Zehina/Webtoon-Downloader)
 
 ## YouTube Video Dataset Creator (yt_out.py)
 
@@ -50,7 +70,7 @@ Clone the repository or download the script. (see README in root folder of repos
 Run the script with the following command-line arguments:
 
 ```bash
-python script_name.py --videolink <file_path> --destination <output_path> --quality <video_quality> --frameskip <frame_skip> --outputsize <resize_percentage> --showframe <True_or_False>
+python yt.py --videolink <file_path> --destination <output_path> --quality <video_quality> --frameskip <frame_skip> --outputsize <resize_percentage> --showframe <True_or_False>
 ```
 
 None of the arguments are necessary and will revert to the defaults if not specifically passed to the script!

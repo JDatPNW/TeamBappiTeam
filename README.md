@@ -94,6 +94,8 @@ Will be populated once project moves along further!
 ### Built With
 
 * [![Python][Python]][Python-url]
+* [![OpenCV][OpenCV]][opencv-url]
+* [![Numpy][Numpy]][numpy-url]
 * [![Visual-Studio-Code][Visual-Studio-Code]][Visual-Studio-Code-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -108,6 +110,8 @@ Will get updated once project becomes more complex, for now just clone the proje
 ### Prerequisites
 
 Python libraries that are needed to run the code
+
+__We provide a `requirements.txt` file for easier installation__
 * customtkinter
   ```sh
   pip install customtkinter
@@ -116,6 +120,28 @@ Python libraries that are needed to run the code
   ```sh
   pip install Pillow
   ```
+* Numpy
+  ```sh
+  pip install numpy
+  ```
+* tqdm
+  ```sh
+  pip install tqdm
+  ```
+* OpenCV
+  ```sh
+  pip install opencv-python
+  ```
+* VidGear
+  ```sh
+  pip install vidgear
+  ```
+* Requests
+  ```sh
+  pip install requests
+  ```
+
+
 
 ### Versions
 
@@ -124,11 +150,16 @@ Versions with which the code was written, run and tested:
 | Software      	| Version 	|
 |---------------	|---------	|
 | Python        	| 3.11.5  	|
-| Anaconda      	| 3.11.5  	|
+| Anaconda      	| 23.7.2  	|
 | pip           	| 23.2.1  	|
 | Tkinter       	| 8.6.12  	|
 | Customtkinter 	| 5.2.1   	|
 | Pillow        	| 10.0.0  	|
+| Numpy         	| 1.26.2  	|
+| tqdm          	| 4.66.1  	|
+| OpenCV        	| 4.8.1.78  	|
+| VidGear               | 0.3.0  	|
+| Requests              | 2.31.0  	|
 
 
 ### Installation
@@ -137,7 +168,10 @@ Versions with which the code was written, run and tested:
    ```sh
    git clone https://github.com/JDatPNW/TeamBappiTeam
    ```
-
+2. Install all dependencies
+   ```sh
+   pip install requirements.txt
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -145,9 +179,13 @@ Versions with which the code was written, run and tested:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Will get populated once implementation is advanced further.
+1. Download data using either `./data_acquisition/yt.py`, or the [Webtoon Downloader](https://github.com/Zehina/Webtoon-Downloader) _(or any other given image dataset if you wish to do so)_.
+   - If using __Webtoon Downloader__ :
+   - Use `./data_acquisition/webtoon_combiner.py` to concactinate all the images
+   - Once that is done use the [ComicPanelSegmentation](https://github.com/reidenong/ComicPanelSegmentation) tool to generate single image files.
+2. Use the `./data_preprocessing_and_augmentation/data_mod.py` tool to resize, augment and clean the data   
 
-_For more examples, please refer to the [Documentation](https://github.com/JDatPNW/TeamBappiTeam/wiki)_
+_For more examples and information, please refer to the [Documentation](https://github.com/JDatPNW/TeamBappiTeam/wiki)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,14 +193,20 @@ _For more examples, please refer to the [Documentation](https://github.com/JDatP
 
 <!-- ROADMAP -->
 ## Roadmap
+### Early Stages
+- [x] Dataset collection mechanism
+- [x] Dataset pre processing
+- [ ] Model implementation
+- [ ] Model training
+- [x] GUI
 
+### Final Stages
 - [ ] Dataset collection mechanism
 - [ ] Dataset pre processing
 - [ ] Model implementation
 - [ ] Model training
 - [ ] GUI
-    - [x] Prototype
-    - [ ] Final Version
+
 
 See the [open issues](https://github.com/JDatPNW/TeamBappiTeam/issues?q=is%3Aopen+is%3Aissue) for a full list of proposed features (and known issues).
 
@@ -236,3 +280,7 @@ Project Link: [https://github.com/JDatPNW/TeamBappiTeam](https://github.com/JDat
 [Python-url]: https://www.python.org/
 [Visual-Studio-Code]: https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white
 [Visual-Studio-Code-url]: https://code.visualstudio.com/
+[OpenCV]: https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white
+[NumPy]: https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white
+[numpy-url]: https://numpy.org/
+[opencv-url]: https://opencv.org/

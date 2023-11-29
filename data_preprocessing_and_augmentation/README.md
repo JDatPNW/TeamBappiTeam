@@ -16,7 +16,7 @@ pip install pillow numpy
 Run the script from the command line with optional arguments:
 
 ```bash
-python image_processing_script.py --inputpath [path/to/input/folder] --destination [path/to/output/folder] --threshold [threshold_value] --cropx [target_width] --cropy [target_height] --height_modifier [height_modifier_value]
+python data_mod.py.py --inputpath [path/to/input/folder] --destination [path/to/output/folder] --threshold [threshold_value] --cropx [target_width] --cropy [target_height] --height_modifier [height_modifier_value]
 ```
 ## Command-line Arguments
 - --inputpath: Path to the folder containing the original image data. Default is ../data/.
@@ -30,7 +30,7 @@ NOTE: The height modifier is tricky and can cause issues if not used correctly, 
 
 ## Example
 ``` bash
-python image_processing_script.py --inputpath ../sample_images/ --destination ../output_images/ --threshold 30 --cropx 80 --cropy 120 --height_modifier 2.0
+python data_mod.py.py --inputpath ../sample_images/ --destination ../output_images/ --threshold 30 --cropx 80 --cropy 120 --height_modifier 2.0
 ```
 #### In this example:
 
