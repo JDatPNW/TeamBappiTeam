@@ -7,10 +7,10 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("--inputpath", required=False, type=str, help="Folder containing image data", default='../data/')
 parser.add_argument("--destination", required=False, type=str, help="Target path to save modified images", default='../mod_data/')
-parser.add_argument("--threshold", required=False, type=str, help="Threshold for black and white conversion", default=20)
-parser.add_argument("--cropx", required=False, type=str, help="Target width for cropping", default=64)
-parser.add_argument("--cropy", required=False, type=str, help="Target height for cropping", default=96)
-parser.add_argument("--height_modifier", required=False, type=str, help="Should Frame be displayed?", default=1.5)
+parser.add_argument("--threshold", required=False, type=int, help="Threshold for black and white conversion", default=20)
+parser.add_argument("--cropx", required=False, type=int, help="Target width for cropping", default=64)
+parser.add_argument("--cropy", required=False, type=int, help="Target height for cropping", default=96)
+parser.add_argument("--height_modifier", required=False, type=float, help="Should Frame be displayed?", default=1.5)
 args = parser.parse_args()
 
 # Extracting values from command-line arguments
@@ -39,9 +39,12 @@ for i, file in enumerate(os.listdir(input_path)):
         for_white = np.array(image)
 
         # Create a binary mask for pixels below a certain threshold - to filter out black borders
-        mask = for_white < (255 - threshold)
-        mask = mask.any(2)
-        mask0, mask1 = mask.any(0), mask.any(1)
+        try:
+            mask = for_white < (255 - threshold)
+            mask = mask.any(2)
+            mask0, mask1 = mask.any(0), mask.any(1)
+        except np.exceptions.AxisError:
+            continue
 
         # Apply the mask to the original image to get a cropped image
         cropped_image = for_white[np.ix_(mask1, mask0)]
@@ -54,11 +57,13 @@ for i, file in enumerate(os.listdir(input_path)):
         y_nonzero, x_nonzero, _ = np.nonzero(np.array(for_black) > threshold)
 
         # Crop the image based on the non-zero elements
-        cropped_image_again = for_black.crop(
-            (np.min(x_nonzero), np.min(y_nonzero), np.max(x_nonzero), np.max(y_nonzero))
-        )
-        del cropped_image, for_black, x_nonzero, y_nonzero
-
+        try:
+            cropped_image_again = for_black.crop(
+                (np.min(x_nonzero), np.min(y_nonzero), np.max(x_nonzero), np.max(y_nonzero)))
+            del cropped_image, for_black, x_nonzero, y_nonzero
+        except ValueError:
+            continue
+        
         # Resize the cropped image to a specified height while maintaining the aspect ratio
         width, height = cropped_image_again.size
         new_height = int(cropy * height_modifier)
