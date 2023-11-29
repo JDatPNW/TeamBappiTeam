@@ -1,0 +1,6 @@
+Enter Youtube Video and playlist URLs here (also delete this line and all the following ones)!
+Should look like this (can also be a single video or playlist url or any combination):
+https://www.link.to.youtube.video.com
+https://www.link.to.youtube.playlist.com
+https://www.link.to.youtube.playlist.com
+https://www.link.to.youtube.video.com
