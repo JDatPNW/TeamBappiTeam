@@ -1,5 +1,32 @@
 # Data Acquisition Modules
 
+## Webtoon combiner (webtoon_combiner.py)
+
+This Python script combines seperate images obtained with Webtoon-Downloader(https://github.com/Zehina/Webtoon-Downloader).
+
+### Prerequisites
+
+- Python 3.x
+- pillow
+- numpy
+- tqdm
+
+### Usage
+
+```bash
+python webtoon_combiner.py --filepath <file_path> --outputpath <int:output_path> --start <int:start_episode> --end <end_episode> --all <True/False> --combine <int:Unit to combine imgs with> --remove <True/False>
+```
+
+None of the arguments are necessary and will revert to the defaults if not specifically passed to the script!
+- --filepath: Directory where imgs are saved by using Webtoon-Downloader.
+- --outputpath: Directory where to save the combine imgs.
+- --start: Episode to start combine.
+- --end: Episode to end combine.
+- --all: Whether to combine all.
+- --combine: Unit to combine imgs with.
+- --remove: Whether to remove the original imgs.
+
+
 ## YouTube Video Dataset Creator (yt_out.py)
 
 This Python script captures frames from YouTube videos and creates a dataset of images. It supports both single video links and entire YouTube playlists.
