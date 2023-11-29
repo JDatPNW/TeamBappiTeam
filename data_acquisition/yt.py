@@ -9,7 +9,7 @@ import os # Importing os to access the current directory
 # Parsing command-line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("--videolink", required=False, type=str, help="File containing YouTube Video URLs", default='./yt_input.txt' )
-parser.add_argument("--destination", required=False, type=str, help="Target path to save images", default='./yt_out')
+parser.add_argument("--destination", required=False, type=str, help="Target path to save images", default='../data')
 parser.add_argument("--quality", required=False, type=str, help="Select either best or worst or any of the common YouTube qualities e.g. 720p", default="worst")
 parser.add_argument("--frameskip", required=False, type=str, help="Only captures every n-th frame", default=10)
 parser.add_argument("--outputsize", required=False, type=str, help="Percentage (0.0-1.0) of original size to which the images should be rescaled", default=1)

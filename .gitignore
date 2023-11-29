@@ -162,3 +162,5 @@ cython_debug/
 #TeamBappiTeam
 data_acquisition/yt_out/
 data_acquisition/yt_input.txt
+data/
+mod_data/
