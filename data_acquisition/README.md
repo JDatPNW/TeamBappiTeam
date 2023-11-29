@@ -2,7 +2,8 @@
 
 ## Webtoon combiner (webtoon_combiner.py)
 
-This Python script combines seperate images obtained with Webtoon-Downloader(https://github.com/Zehina/Webtoon-Downloader).
+This Python script combines seperate images obtained with [Webtoon-Downloader](https://github.com/Zehina/Webtoon-Downloader).
+We created a test dataset using [ComicPanelSegmentation](https://github.com/reidenong/ComicPanelSegmentation) on combine images.
 
 ### Prerequisites
 
@@ -17,7 +18,6 @@ This Python script combines seperate images obtained with Webtoon-Downloader(htt
 python webtoon_combiner.py --filepath <file_path> --outputpath <int:output_path> --start <int:start_episode> --end <end_episode> --all <True/False> --combine <int:Unit to combine imgs with> --remove <True/False>
 ```
 
-None of the arguments are necessary and will revert to the defaults if not specifically passed to the script!
 - --filepath: Directory where imgs are saved by using Webtoon-Downloader.
 - --outputpath: Directory where to save the combine imgs.
 - --start: Episode to start combine.
