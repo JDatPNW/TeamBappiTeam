@@ -11,14 +11,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--videolink", required=False, type=str, help="File containing YouTube Video URLs", default='./yt_input.txt' )
 parser.add_argument("--destination", required=False, type=str, help="Target path to save images", default='../data')
 parser.add_argument("--quality", required=False, type=str, help="Select either best or worst or any of the common YouTube qualities e.g. 720p", default="worst")
-parser.add_argument("--frameskip", required=False, type=str, help="Only captures every n-th frame", default=10)
-parser.add_argument("--outputsize", required=False, type=str, help="Percentage (0.0-1.0) of original size to which the images should be rescaled", default=1)
-parser.add_argument("--showframe", required=False, type=str, help="Should Frame be displayed?", default=False)
+parser.add_argument("--frameskip", required=False, type=int, help="Only captures every n-th frame", default=10)
+parser.add_argument("--outputsize", required=False, type=float, help="Percentage (0.0-1.0) of original size to which the images should be rescaled", default=1)
+parser.add_argument("--showframe", required=False, type=bool, help="Should Frame be displayed?", default=False)
 args = parser.parse_args()
 
 # Extracting values from command-line arguments
 file_path = args.videolink
-path = dir_path = args.destination
+path = args.destination
 quality = args.quality
 frameskip = args.frameskip
 outputsize = args.outputsize
