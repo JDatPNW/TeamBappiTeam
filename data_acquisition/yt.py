@@ -5,6 +5,7 @@ import argparse  # Importing argparse for parsing command-line arguments
 import requests  # Importing requests for making HTTP requests
 import re  # Importing re for regular expressions
 import os # Importing os to access the current directory
+import numpy as np
 
 # Parsing command-line arguments
 parser = argparse.ArgumentParser()
@@ -14,6 +15,9 @@ parser.add_argument("--quality", required=False, type=str, help="Select either b
 parser.add_argument("--frameskip", required=False, type=int, help="Only captures every n-th frame", default=10)
 parser.add_argument("--outputsize", required=False, type=float, help="Percentage (0.0-1.0) of original size to which the images should be rescaled", default=1)
 parser.add_argument("--showframe", required=False, type=bool, help="Should Frame be displayed?", default=False)
+parser.add_argument("--useai", required=False, type=bool, help="Should AI model be used to help sort images?", default=False)
+parser.add_argument("--aithreshold", required=False, type=float, help="How convinced should the model be the image is good? Lower is more generous, higher is more strict.", default=0.75)
+parser.add_argument("--aisaveboth", required=False, type=bool, help="Should bad images be saved too (into a seperate folder)?", default=True)
 args = parser.parse_args()
 
 # Extracting values from command-line arguments
@@ -23,10 +27,19 @@ quality = args.quality
 frameskip = args.frameskip
 outputsize = args.outputsize
 show_frame = args.showframe
+use_ai = args.useai
+ai_threshold = args.aithreshold
+ai_save_both = args.aisaveboth
+
+if use_ai:
+    import tensorflow as tf
+    model = tf.keras.models.load_model("./ai_helper.h5")
 
 #Create dir if it does not already exist
 if not os.path.exists(path):
     os.makedirs(path)
+    if use_ai and ai_save_both:
+        os.makedirs(path + "/bad/")
 
 # Reading video links from the specified file
 with open(file_path, 'r') as file:
@@ -82,7 +95,23 @@ for link in linklist:
                 print("Creating..." + name)
                 if outputsize != 1:
                     frame = cv2.resize(frame, (0, 0), fx=outputsize, fy=outputsize)
-                cv2.imwrite(name, frame)
+                if use_ai: # entered if using AI helper
+                    frame_resized = cv2.resize(frame, (213, 120)) # resize to ai model input size
+                    frame_resized_gs = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2GRAY) # make greyscale
+                    frame_resized_gs_expanded = np.expand_dims(frame_resized_gs, axis=-1) # add dim to end
+                    input_frame = np.expand_dims(frame_resized_gs_expanded, axis=0) #  # add dim to beginning
+                    prediction = model.predict(input_frame) # index 0 should be bad, index 1 should be good
+                    print(f"----AI helper: Frame is {round(100*prediction[0][0], 2)}% bad and {round(100*prediction[0][1], 2)}% good.")
+                    if prediction[0][1] >= ai_threshold: # check if images is good
+                        cv2.imwrite(name, frame)
+                        print("--------Saved image as good!")
+                    elif ai_save_both: # if also saving bad ones
+                        name = path + "/bad/" + stream.ytv_metadata["title"] + "_frame" + str(currentframe) + ".jpg"
+                        cv2.imwrite(name, frame)
+                        print("--------Saved image as bad!")
+                else:
+                    cv2.imwrite(name, frame)
+                    print("----Saved image!")
 
             currentframe += 1
 
